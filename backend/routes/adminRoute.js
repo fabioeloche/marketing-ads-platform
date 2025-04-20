@@ -7,6 +7,7 @@ const router = express.Router();
 
 // Admin routes
 router.get('/users', authMiddleware.protect, adminController.getAllUsers);
+router.get('/users/:userId/files',authMiddleware.protect,  adminController.getUserFiles);
 
 
 module.exports = router;
