@@ -7,6 +7,7 @@ const csvRoute = require("./route/csvRoute");
 const adsRoute = require("./route/adsRoute");
 const shareRoutes = require("./route/shareRoutes");
 const emailRoute = require("./route/emailRoute");
+const adminRoute = require("./route/adminRoute");
 
 
 const app = express();
@@ -22,6 +23,7 @@ app.use("/api/csv", csvRoute);
 app.use("/api/ads", adsRoute);
 app.use("/api/share", shareRoutes);
 app.use("/api/email", emailRoute);
+app.use("/api/admin", adminRoute);
 
 //404 handler
 app.use((req, res) => {
