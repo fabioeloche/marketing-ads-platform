@@ -20,4 +20,10 @@ router.put(
     csvController.updateCsvFile
   );
 
+  router.delete(
+    '/delete/:fileId',
+    authMiddleware.protect,
+    csvController.deleteCsvFile
+  );
+
 module.exports = router;
