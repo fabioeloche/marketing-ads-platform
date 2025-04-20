@@ -8,4 +8,5 @@ const router = express.Router();
 
 router.get('/allfile',authMiddleware.protect, adsController.getAllAds);
 
+router.get('/singlefile/:fileId', authMiddleware.protect, adsController.getAdsFileId);
 module.exports = router;
