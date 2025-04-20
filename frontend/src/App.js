@@ -1,10 +1,12 @@
 import './App.css';
 import { Navbar } from './components/Navbar';
+import { PrivateRoute } from './components/PrivateRoute';
 import { AdsList } from './pages/AdsList';
 import { Login } from './pages/Login';
 import { Signup } from './pages/Signup';
 import { FileUpload } from './pages/FileUpload';
 import { EditAds } from './pages/EditAds';
+import {AdminDashboard} from './components/AdminDashboard';
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
         <Route path="/FileUpload" element={<FileUpload />} />
         <Route path="/AdsList" element={<AdsList />} />
         <Route path="/EditAds/:fileId" element={<EditAds />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
       </Routes>
     </div>
   );
