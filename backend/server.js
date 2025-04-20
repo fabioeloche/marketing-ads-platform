@@ -3,6 +3,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const authRoute = require("./route/authRoute");
+const csvRoute = require("./route/csvRoute");
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true, limit: "5mb" })); // Allow form-dat
 
 // API Routes
 app.use("/api/auth", authRoute);
+app.use("/api/csv", csvRoute);
 
 //404 handler
 app.use((req, res) => {
