@@ -5,6 +5,7 @@ require("dotenv").config();
 const authRoute = require("./route/authRoute");
 const csvRoute = require("./route/csvRoute");
 const adsRoute = require("./route/adsRoute");
+const shareRoutes = require("./route/shareRoutes");
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true, limit: "5mb" })); // Allow form-dat
 app.use("/api/auth", authRoute);
 app.use("/api/csv", csvRoute);
 app.use("/api/ads", adsRoute);
+app.use("/api/share", shareRoutes);
 
 //404 handler
 app.use((req, res) => {
