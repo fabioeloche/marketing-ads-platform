@@ -4,6 +4,7 @@ import { AdsList } from './pages/AdsList';
 import { Login } from './pages/Login';
 import { Signup } from './pages/Signup';
 import { FileUpload } from './pages/FileUpload';
+import { EditAds } from './pages/EditAds';
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/Signup" element={<Signup />} />
         <Route path="/FileUpload" element={<FileUpload />} />
+        <Route path="/AdsList" element={<AdsList />} />
+        <Route path="/EditAds/:fileId" element={<EditAds />} />
       </Routes>
     </div>
   );
