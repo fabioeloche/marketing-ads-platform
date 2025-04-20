@@ -150,6 +150,41 @@ class AdminController {
         });
     }
 }
+async deleteFile(req, res) {
+    const { fileId } = req.params;
+
+    try {
+        // Check if the file exists in the database
+        const fileRecord = await sequelize.query(
+          `SELECT filename FROM csv_uploads WHERE id = :fileId`,
+          { type: QueryTypes.SELECT, replacements: { fileId } }
+        );
+    
+        if (!fileRecord.length) {
+          return res.status(404).json({ success: false, message: "File not found in database." });
+        }
+    
+        const filePath = path.join(__dirname, "../uploads", fileRecord[0].filename);
+    
+        // Delete the file from the filesystem if it exists
+        if (fs.existsSync(filePath)) {
+          fs.unlinkSync(filePath);
+        } else {
+          console.warn(`File ${filePath} not found on server, but removing from database.`);
+        }
+    
+        // Delete the file record from the database
+        await sequelize.query(
+          `DELETE FROM csv_uploads WHERE id = :fileId`,
+          { type: QueryTypes.DELETE, replacements: { fileId } }
+        );
+    
+        res.json({ success: true, message: "File deleted successfully." });
+      } catch (error) {
+        console.error("Delete Error:", error);
+        res.status(500).json({ success: false, message: "Server error during file deletion.", error: error.message });
+      }
+    }
 
 }
 

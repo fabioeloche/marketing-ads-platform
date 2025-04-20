@@ -9,6 +9,6 @@ const router = express.Router();
 router.get('/users', authMiddleware.protect, adminController.getAllUsers);
 router.get('/users/:userId/files',authMiddleware.protect,  adminController.getUserFiles);
 router.delete('/users/:userId',authMiddleware.protect,  adminController.deleteUser);
-
+router.delete('/files/:fileId',authMiddleware.protect, adminController.deleteFile);
 
 module.exports = router;
