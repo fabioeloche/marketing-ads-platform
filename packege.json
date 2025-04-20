@@ -1,0 +1,19 @@
+{
+    "devDependencies": {
+      "concurrently": "^9.1.2"
+    },
+    "scripts": {
+      "install:all": "cd backend && npm install && cd ../frontend && npm install",
+      "start": "concurrently \"npm run server\" \"npm run client\"",
+      "server": "cd backend && npm start",
+      "client": "cd frontend && npm start"
+    },
+    "dependencies": {
+      "all": "^0.0.0",
+      "csv-stringify": "^6.5.2",
+      "exceljs": "^4.4.0",
+      "multer": "^1.4.5-lts.1",
+      "nodemailer": "^6.10.0"
+    }
+  }
+  
