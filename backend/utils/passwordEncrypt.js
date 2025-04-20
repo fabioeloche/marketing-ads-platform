@@ -9,3 +9,6 @@ exports.hashPassword = async (password) => {
     console.log(error);
   }
 };
+exports.comparePassword = async (password, hashpassword) => {
+    return bcrypt.compare(password, hashpassword);
+};
