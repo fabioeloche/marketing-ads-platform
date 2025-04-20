@@ -78,6 +78,79 @@ class AdminController {
     }
   }
 
+  async deleteUser(req, res) {
+    const { userId } = req.params;
+
+    try {
+        // 1. Verify user exists
+        const userRecord = await sequelize.query(
+            `SELECT id, email FROM users WHERE id = :userId`,
+            { type: QueryTypes.SELECT, replacements: { userId } }
+        );
+
+        if (!userRecord.length) {
+            return res.status(404).json({ 
+                success: false, 
+                message: "User not found in database." 
+            });
+        }
+
+        // 2. Delete all user's files from filesystem and database
+        const userFiles = await sequelize.query(
+            `SELECT filename FROM csv_uploads WHERE user_id = :userId`,
+            { type: QueryTypes.SELECT, replacements: { userId } }
+        );
+
+        // Delete physical files
+        for (const file of userFiles) {
+            const filePath = path.join(__dirname, "../uploads", file.filename);
+            if (fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath);
+            }
+        }
+
+        // 3. Delete database records (in transaction)
+        await sequelize.transaction(async (transaction) => {
+            // Delete user's files
+            await sequelize.query(
+                `DELETE FROM csv_uploads WHERE user_id = :userId`,
+                { 
+                    type: QueryTypes.DELETE, 
+                    replacements: { userId },
+                    transaction 
+                }
+            );
+
+            // Delete user
+            await sequelize.query(
+                `DELETE FROM users WHERE id = :userId`,
+                { 
+                    type: QueryTypes.DELETE, 
+                    replacements: { userId },
+                    transaction 
+                }
+            );
+        });
+
+        // 4. Log the action
+        console.log(`Deleted user ${userRecord[0].email} (ID: ${userId}) and ${userFiles.length} files`);
+
+        res.json({ 
+            success: true, 
+            message: "User and all associated files deleted successfully.",
+            deletedFilesCount: userFiles.length
+        });
+
+    } catch (error) {
+        console.error("Delete User Error:", error);
+        res.status(500).json({ 
+            success: false, 
+            message: "Server error during user deletion.",
+            error: error.message 
+        });
+    }
+}
+
 }
 
 
