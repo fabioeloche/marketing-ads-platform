@@ -26,4 +26,10 @@ router.put(
     csvController.deleteCsvFile
   );
 
+  router.get(
+    '/download/:fileId',
+    authMiddleware.protect,
+    csvController.downloadCsvFile
+  );
+
 module.exports = router;

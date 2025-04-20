@@ -280,3 +280,37 @@ exports.uploadCsv = async (req, res) => {
     }
   };
   
+  exports.downloadCsvFile = async (req, res) => {
+    const { fileId } = req.params;
+  
+    try {
+      // Fetch the filename from the database
+      const fileRecord = await sequelize.query(
+        `SELECT filename FROM csv_uploads WHERE id = :fileId`,
+        { type: QueryTypes.SELECT, replacements: { fileId } }
+      );
+  
+      if (!fileRecord.length) {
+        return res.status(404).json({ success: false, message: 'File not found in database.' });
+      }
+  
+      const filePath = path.join(__dirname, '../uploads', fileRecord[0].filename);
+  
+      // Check if the file exists on the server
+      if (!fs.existsSync(filePath)) {
+        return res.status(404).json({ success: false, message: 'File does not exist on the server.' });
+      }
+  
+      // Send the file for download
+      res.download(filePath, fileRecord[0].filename, (err) => {
+        if (err) {
+          console.error('File Download Error:', err);
+          res.status(500).json({ success: false, message: 'Error downloading file.' });
+        }
+      });
+  
+    } catch (error) {
+      console.error('Download Error:', error);
+      res.status(500).json({ success: false, message: 'Server error during file download.', error: error.message });
+    }
+  };
