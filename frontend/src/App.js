@@ -7,6 +7,7 @@ import { Signup } from './pages/Signup';
 import { FileUpload } from './pages/FileUpload';
 import { EditAds } from './pages/EditAds';
 import {AdminDashboard} from './components/AdminDashboard';
+import {UnauthorizedPage} from './components/UnauthorizedPage';
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
         <Route path="/AdsList" element={<AdsList />} />
         <Route path="/EditAds/:fileId" element={<EditAds />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/unauthorized" element={<UnauthorizedPage />} />
+        <Route path="/unauthorized/:fileId?" element={<UnauthorizedPage />} />
+        
       </Routes>
     </div>
   );
