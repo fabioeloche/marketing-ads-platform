@@ -4,9 +4,10 @@
     },
     "scripts": {
       "install:all": "cd backend && npm install && cd ../frontend && npm install",
-      "start": "concurrently \"npm run server\" \"npm run client\"",
+      "start": "concurrently \"npm run server\" \"npm run client\" \"npm run python\"",
       "server": "cd backend && npm start",
-      "client": "cd frontend && npm start"
+      "client": "cd frontend && npm start",
+      "python": "cd frontend && python service.py"
     },
     "dependencies": {
       "all": "^0.0.0",
