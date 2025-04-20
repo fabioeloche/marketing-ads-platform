@@ -4,12 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ToastContainer } from 'react-toastify';
+import { AuthProvider } from './context/auth';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
+   <AuthProvider>
     <ToastContainer
       position="top-center"
       autoClose={5000}
@@ -24,6 +26,7 @@ root.render(
       // transition={Bounce} 
       />
     <App />
+    </AuthProvider>
   </BrowserRouter>
 );
 
