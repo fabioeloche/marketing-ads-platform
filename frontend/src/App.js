@@ -8,6 +8,7 @@ import { FileUpload } from './pages/FileUpload';
 import { EditAds } from './pages/EditAds';
 import {AdminDashboard} from './components/AdminDashboard';
 import {UnauthorizedPage} from './components/UnauthorizedPage';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
   return (

@@ -2,12 +2,12 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
-const authRoute = require("./route/authRoute");
-const csvRoute = require("./route/csvRoute");
-const adsRoute = require("./route/adsRoute");
-const shareRoutes = require("./route/shareRoutes");
-const emailRoute = require("./route/emailRoute");
-const adminRoute = require("./route/adminRoute");
+const authRoute = require("./routes/authRoute");
+const csvRoute = require("./routes/csvRoute");
+const adsRoute = require("./routes/adsRoute");
+const shareRoutes = require("./routes/shareRoutes");
+const emailRoute = require("./routes/emailRoute");
+const adminRoute = require("./routes/adminRoute");
 
 
 const app = express();
